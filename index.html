@@ -15,7 +15,7 @@ var myGamePiece;
 
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(30, 30, "Sprite/tile003.png", 10, 120, "image");
+    myGamePiece = new component(30, 30, "tile003.png", 10, 120, "image");
 }
 
 var myGameArea = {
@@ -75,7 +75,7 @@ function updateGameArea() {
 }
 
 function move(dir) {
-    myGamePiece.image.src = "Sprite/tile004.png";
+    myGamePiece.image.src = "tile004.png";
     if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -2; }
     if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 2; }
     if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -2; }
