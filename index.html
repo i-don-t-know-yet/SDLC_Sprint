@@ -2,27 +2,43 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <style>
+body {
+    background-color: cornflowerblue;
+}
 canvas {
     border:1px solid #d3d3d3;
-    background-color: #f1f1f1;
+    background-color: whitesmoke;
+}
+button{
+    background-color: dodgerblue;
+    width: 100px;
+    height: 20px;
 }
 </style>
 </head>
-<body onload="startGame()">
+<body>
+<div id="disappear">
+  <button onclick="startGame(); button()">Start</button><br>
+</div>
 <script>
+function button(){
+    document.getElementById("disappear").innerHTML="";
+}
 
 var myGamePiece;
+var myBackground;
 
 function startGame() {
     myGameArea.start();
-    myGamePiece = new component(30, 30, "tile003.png", 10, 120, "image");
+    myGamePiece = new component(50, 50, "letter.png", 10, 120, "image");
+    myBackground = new component(1420, 720, "background.jpg", 0, 0, "image");
 }
 
 var myGameArea = {
     canvas : document.createElement("canvas"),
     start : function() {
         this.canvas.width = 1420;
-        this.canvas.height = 750;
+        this.canvas.height = 720;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
         this.interval = setInterval(updateGameArea, 20);
@@ -70,25 +86,8 @@ function component(width, height, color, x, y,type) {
 }
 function updateGameArea() {
     myGameArea.clear();
-    myGamePiece.newPos();
-    myGamePiece.update();
-}
-
-function move(dir) {
-    myGamePiece.image.src = "tile004.png";
-    if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -2; }
-    if (myGameArea.keys && myGameArea.keys[39]) {myGamePiece.speedX = 2; }
-    if (myGameArea.keys && myGameArea.keys[38]) {myGamePiece.speedY = -2; }
-    if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 2; }
-}
-
-function clearmove() {
-    myGamePiece.image.src = "Sprite/tile003.png";
-    myGamePiece.speedX = 0; 
-    myGamePiece.speedY = 0; 
-}
-/*function updateGameArea() {
-    myGameArea.clear();
+    myBackground.newPos(); 
+    myBackground.update();
     myGamePiece.speedX = 0;
     myGamePiece.speedY = 0;    
     if (myGameArea.keys && myGameArea.keys[37]) {myGamePiece.speedX = -2; }
@@ -97,13 +96,7 @@ function clearmove() {
     if (myGameArea.keys && myGameArea.keys[40]) {myGamePiece.speedY = 2; }
     myGamePiece.newPos();    
     myGamePiece.update();
-}*/
+}
 </script>
-    <div style="text-align:center;width:480px;">
-  <button keydown="move('up')" keyup="clearmove()" ontouchstart="move('up')">UP</button><br><br>
-  <button keydown="move('left')" keyup="clearmove()" ontouchstart="move('left')">LEFT</button>
-  <button keydown="move('right')" keyup="clearmove()" ontouchstart="move('right')">RIGHT</button><br><br>
-  <button keydown="move('down')" keyup="clearmove()" ontouchstart="move('down')">DOWN</button>
-</div>
 </body>
 </html>
